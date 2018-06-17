@@ -1,0 +1,60 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\usepackage{minted}
+\usepackage{hyperref}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english]{babel}
+\usepackage{ethiop}
+
+\graphicspath{ {charts/} }
+
+\usepackage{biblatex}
+\addbibresource{references.bib}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125em}}
+
+\begin{document}
+
+\selectlanguage{english}
+\title{Amharic language letter frequency distribution\\}
+\author{\IEEEauthorblockN{Samson Endale Mergissa}
+\IEEEauthorblockA{\textit{Crypo analysis (IP team)} \\
+\textit{Information Network Security Agency}\\
+Addis Ababa, Ethiopia \\
+samson.endale@insa.gov.et, 4sam21@gmail.com}
+}
+
+\maketitle
+
+\begin{abstract}
+One of the first and famous attacks on classical cryptographic algorithms is frequency analysis. It requires the letter frequency of the given language available to implement this attack. Even if an Amharic text is encrypted with a simple mono-alphabetic substitution, we couldn't break the cipher with frequency analysis because the Amharic language never been analyzed to learn the letter frequency distribution. I have tried to address this problem by collecting and analyzing a relatively large dataset of Amharic texts. This analysis and findings are done for the first time for this language and I have uncovered fascinating statistical distributions of the language.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Amharic, frequency distribution, cryptanalysis  
+\end{IEEEkeywords}
+
+\input{sections/1_Introduction.tex}
+\input{sections/2_Background.tex}
+\input{sections/3_Methodology.tex}
+\input{sections/4_Data_and_Results.tex}
+\input{sections/5_Discussion.tex}
+\input{sections/6_Conclusion.tex}
+\input{sections/7_Limitations_of_the_study.tex}
+\input{sections/8_Recommendations.tex}
+\input{sections/9_Acknowledgements.tex}
+
+\section{Appendex}
+The software I developed with the full result is available at \url{https://github.com/SamAsEnd/amharic-letter-frequency-distribution}.
+
+\printbibliography
+
+\end{document}

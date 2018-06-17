@@ -1,0 +1,28 @@
+\section{Methodology}
+
+\subsection{Data Gathering}
+The first route I took was to collect various religious texts. I successfully manage to find more than 800,000 characters suitable for analyzing. I also tried to gather some Amharic fictions, the constitution, government regulations,  and government reports.
+
+The second place I look for gathering the document was around newspapers which publish a soft-copy on their site. It was a good lead with few newspapers but most of the publisher upload the scanned version of the printed newspaper or the encoding was very bogus and I couldn't extract the Amharic letters.
+
+Lastly, I was googling for Amharic documents by hand which was the least efficient way of tackling the problem. At first, I was looking for a search engine with a regular expression support to search for a document containing the Ethiopic Unicode block which is between 0x1200 to 0x1347. However, most of the search engines lack this functionality which was discouraging. After a lot of effort, I found a more effective method. 
+
+Analyzing the already available data, I found out a glimpse of the frequency distribution of the language with a fewer dataset. It happens to be "\foreignlanguage{ethiop}{n}" is the most frequent character from the religious texts. The letter "\foreignlanguage{ethiop}{n}" most likely will occur at least once in any Amharic document. This was an alternative for filtering am Amharic documents on the web. So I start searching for \texttt{\textbf{"allintext:\foreignlanguage{ethiop}{n} filetype:pdf"}} on Google and the number of the result was promising. Thus I was using as a result of an “Amharic language frequency distribution” of a smaller dataset to gather a larger dataset for “Amharic language frequency distribution”. This method help to gather a lot of random documents which is good for diversifying the dataset but I started to notice a few obstacles.
+
+Most of the documents I found were not larger than 5 pages and I noticed some of the documents were Tigrigna, Ge`ez or some other Ethiopian language which use the Ge’ez script. So I start looking for a better method to query the search engines. At last, I fined tuned my search query to \texttt{\textbf{"allintext:\foreignlanguage{ethiop}{mAwe^CA} filetype:pdf"}}. I noticed word \foreignlanguage{ethiop}{mAwe^CA} usually occurs more frequently in long Amharic documents through observation and it also makes the document more likely an Amharic.
+
+I was also was trying to write a web crawler to index \url{https://am.wikipedia.org} but I dismiss it because like most sites, the layout of the website was a static and repeated in every page. I didn’t want to “poison” my dataset with a "wrong" frequency.
+
+\subsection{Data preparation and clean up}
+Before analyzing the PDF format files, I wanted to make sure there was no duplication in the files. I first run \texttt{\textbf{“sha256sum”}} command in a Linux terminal and pipeline the output to \texttt{\textbf{“sort”}}. 
+
+\inputminted{bash}{codes/sha256-sort.sh}
+
+There were some duplicates. Therefore I used a tool called \texttt{\textbf{“fdupes”}} to locate and delete duplicated files.
+
+\mint{bash}{\$ fdupes -d *}
+
+Second I converted all of the PDF files to a plain text using a tool called \texttt{\textbf{“pdftotext”}} because plain text files are easier to process than a PDF format. Lastly, I combined the text files into a giant plain file to shave it to my own analyzer program. The combined text contains 2,245,892 lines,  6,150,197 words and 75,143,429 letters. But I later found out only 17.2 million of the letters were a properly encoded Amharic Unicode characters.
+
+\subsection{Analysis}
+The analysis was a straightforward process. I wrote a python program which opens the documents and counts the various frequencies and dumps the result into a CSV file.
